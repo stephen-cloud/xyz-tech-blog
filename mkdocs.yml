@@ -1,0 +1,9 @@
+site_name: XYZ Tech Blog
+
+nav:
+  - "I'm Glad I Learned: WebFlux": webflux.md
+  - "I'm Glad I Learned: Spring Boot's Free Stuff": spring-boot-free-stuff.md
+  - "I'm Glad I Learned: Kotlin": kotlin.md
+
+theme: 
+  name: material
