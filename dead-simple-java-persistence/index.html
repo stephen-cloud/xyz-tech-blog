@@ -1,0 +1,1823 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.0">
+    
+    
+      
+        <title>A Lazy Afternoon With Dead-simple Java Persistence - XYZ Tech Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.18ac144a.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-cooks-tour-of-java-persistence" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="XYZ Tech Blog" class="md-header-nav__button md-logo" aria-label="XYZ Tech Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            XYZ Tech Blog
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              A Lazy Afternoon With Dead-simple Java Persistence
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="XYZ Tech Blog" class="md-nav__button md-logo" aria-label="XYZ Tech Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    XYZ Tech Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        A Lazy Afternoon With Dead-simple Java Persistence
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="A Lazy Afternoon With Dead-simple Java Persistence" class="md-nav__link md-nav__link--active">
+      A Lazy Afternoon With Dead-simple Java Persistence
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-cooks-tour-of-java-persistence" class="md-nav__link">
+    A Cook's tour of Java persistence
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issues-with-jpa" class="md-nav__link">
+    Issues with JPA
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#so-whats-an-alternate" class="md-nav__link">
+    So what's an alternate?
+  </a>
+  
+    <nav class="md-nav" aria-label="So what's an alternate?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#take-a-look-at-spring-data-jdbc-and-spring-data-rest" class="md-nav__link">
+    Take a look at Spring Data JDBC and Spring Data Rest
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heres-a-complete-application" class="md-nav__link">
+    Here's a complete application
+  </a>
+  
+    <nav class="md-nav" aria-label="Here's a complete application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#applicationjava" class="md-nav__link">
+    Application.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownerjava" class="md-nav__link">
+    Owner.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownerrepositoryjava" class="md-nav__link">
+    OwnerRepository.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maven-pomxml-snippet" class="md-nav__link">
+    Maven pom.xml (snippet)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-manipulate-some-data" class="md-nav__link">
+    Let's manipulate some data
+  </a>
+  
+    <nav class="md-nav" aria-label="Let's manipulate some data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-owners" class="md-nav__link">
+    List owners
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-an-owner" class="md-nav__link">
+    Add an owner
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-another" class="md-nav__link">
+    Add another
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-them-out" class="md-nav__link">
+    List them out
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-someone-me" class="md-nav__link">
+    Delete someone (me 😿)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-them-out-again" class="md-nav__link">
+    List them out again
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-someone" class="md-nav__link">
+    Update someone
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-some-custom-finders" class="md-nav__link">
+    Add some custom finders
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-related-table" class="md-nav__link">
+    Add a related table
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a related table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-vehiclejava" class="md-nav__link">
+    Create Vehicle.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vehiclerepositoryjava" class="md-nav__link">
+    VehicleRepository.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-vehicles-to-ownerjava" class="md-nav__link">
+    Add vehicles to Owner.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manipulate-vehicles" class="md-nav__link">
+    Manipulate vehicles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#another-custom-finder" class="md-nav__link">
+    Another custom finder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happened-to-transactions" class="md-nav__link">
+    What happened to transactions?
+  </a>
+  
+    <nav class="md-nav" aria-label="What happened to transactions?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clean-up-the-objects" class="md-nav__link">
+    Clean up the objects
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-service-with-transactions" class="md-nav__link">
+    Add a service with transactions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-test-all-this" class="md-nav__link">
+    Let's test all this
+  </a>
+  
+    <nav class="md-nav" aria-label="Let's test all this">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-a-repository" class="md-nav__link">
+    Testing a repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-a-service" class="md-nav__link">
+    Testing a service
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-upshot" class="md-nav__link">
+    The upshot
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../webflux/" title="A Lazy Afternoon With WebFlux" class="md-nav__link">
+      A Lazy Afternoon With WebFlux
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../spring-boot-free-stuff/" title="A Lazy Afternoon With Spring Boot's Free Stuff" class="md-nav__link">
+      A Lazy Afternoon With Spring Boot's Free Stuff
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../kotlin/" title="A Lazy Afternoon With Kotlin" class="md-nav__link">
+      A Lazy Afternoon With Kotlin
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-cooks-tour-of-java-persistence" class="md-nav__link">
+    A Cook's tour of Java persistence
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issues-with-jpa" class="md-nav__link">
+    Issues with JPA
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#so-whats-an-alternate" class="md-nav__link">
+    So what's an alternate?
+  </a>
+  
+    <nav class="md-nav" aria-label="So what's an alternate?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#take-a-look-at-spring-data-jdbc-and-spring-data-rest" class="md-nav__link">
+    Take a look at Spring Data JDBC and Spring Data Rest
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heres-a-complete-application" class="md-nav__link">
+    Here's a complete application
+  </a>
+  
+    <nav class="md-nav" aria-label="Here's a complete application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#applicationjava" class="md-nav__link">
+    Application.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownerjava" class="md-nav__link">
+    Owner.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownerrepositoryjava" class="md-nav__link">
+    OwnerRepository.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maven-pomxml-snippet" class="md-nav__link">
+    Maven pom.xml (snippet)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-manipulate-some-data" class="md-nav__link">
+    Let's manipulate some data
+  </a>
+  
+    <nav class="md-nav" aria-label="Let's manipulate some data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-owners" class="md-nav__link">
+    List owners
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-an-owner" class="md-nav__link">
+    Add an owner
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-another" class="md-nav__link">
+    Add another
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-them-out" class="md-nav__link">
+    List them out
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-someone-me" class="md-nav__link">
+    Delete someone (me 😿)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-them-out-again" class="md-nav__link">
+    List them out again
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-someone" class="md-nav__link">
+    Update someone
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-some-custom-finders" class="md-nav__link">
+    Add some custom finders
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-related-table" class="md-nav__link">
+    Add a related table
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a related table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-vehiclejava" class="md-nav__link">
+    Create Vehicle.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vehiclerepositoryjava" class="md-nav__link">
+    VehicleRepository.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-vehicles-to-ownerjava" class="md-nav__link">
+    Add vehicles to Owner.java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manipulate-vehicles" class="md-nav__link">
+    Manipulate vehicles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#another-custom-finder" class="md-nav__link">
+    Another custom finder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happened-to-transactions" class="md-nav__link">
+    What happened to transactions?
+  </a>
+  
+    <nav class="md-nav" aria-label="What happened to transactions?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clean-up-the-objects" class="md-nav__link">
+    Clean up the objects
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-service-with-transactions" class="md-nav__link">
+    Add a service with transactions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-test-all-this" class="md-nav__link">
+    Let's test all this
+  </a>
+  
+    <nav class="md-nav" aria-label="Let's test all this">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-a-repository" class="md-nav__link">
+    Testing a repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-a-service" class="md-nav__link">
+    Testing a service
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-upshot" class="md-nav__link">
+    The upshot
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                  <h1>A Lazy Afternoon With Dead-simple Java Persistence</h1>
+                
+                <p>If owners have vehicles, do you want to write your database connectivity like this?</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.jdbc.repository.query.Query</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.repository.PagingAndSortingRepository</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OwnerRepository</span> <span class="kd">extends</span> <span class="n">PagingAndSortingRepository</span><span class="o">&lt;</span><span class="n">Owner</span><span class="p">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByFirstName</span><span class="p">(</span><span class="n">String</span> <span class="n">firstName</span><span class="p">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByLastName</span><span class="p">(</span><span class="n">String</span> <span class="n">lastName</span><span class="p">);</span>
+
+    <span class="nd">@Query</span><span class="p">(</span><span class="s">&quot;SELECT OWNER.ID, OWNER.FIRST_NAME, OWNER.LAST_NAME FROM OWNER JOIN VEHICLE ON OWNER.ID = VEHICLE.OWNER WHERE VEHICLE.MAKE = :make&quot;</span><span class="p">)</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByVehicleMake</span><span class="p">(</span><span class="n">String</span> <span class="n">make</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>That generates SQL for (only the trivial) CRUD operations like this</p>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;ID&quot;</span> <span class="k">AS</span> <span class="ss">&quot;ID&quot;</span><span class="p">,</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;LAST_NAME&quot;</span> <span class="k">AS</span> <span class="ss">&quot;LAST_NAME&quot;</span><span class="p">,</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;FIRST_NAME&quot;</span> <span class="k">AS</span> <span class="ss">&quot;FIRST_NAME&quot;</span> <span class="k">FROM</span> <span class="ss">&quot;OWNER&quot;</span> <span class="k">WHERE</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;ID&quot;</span> <span class="o">=</span> <span class="o">?</span>
+</code></pre></div>
+
+
+<p>Which you can access like this</p>
+<div class="codehilite"><pre><span></span><code>curl <span class="s2">&quot;http://localhost:8080/owners/search/findByVehicleMake?make=VW&quot;</span>
+</code></pre></div>
+
+
+<p>To return</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;_embedded&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;owners&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+      <span class="nt">&quot;firstName&quot;</span> <span class="p">:</span> <span class="s2">&quot;Stephen&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;lastName&quot;</span> <span class="p">:</span> <span class="s2">&quot;Harrison&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;vehicles&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+        <span class="nt">&quot;make&quot;</span> <span class="p">:</span> <span class="s2">&quot;Honda&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;model&quot;</span> <span class="p">:</span> <span class="s2">&quot;CR-V&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;mileage&quot;</span> <span class="p">:</span> <span class="mi">25000</span><span class="p">,</span>
+        <span class="nt">&quot;owner&quot;</span> <span class="p">:</span> <span class="mi">1</span>
+      <span class="p">},</span> <span class="p">{</span>
+        <span class="nt">&quot;make&quot;</span> <span class="p">:</span> <span class="s2">&quot;VW&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;model&quot;</span> <span class="p">:</span> <span class="s2">&quot;GTI&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;mileage&quot;</span> <span class="p">:</span> <span class="mi">30000</span><span class="p">,</span>
+        <span class="nt">&quot;owner&quot;</span> <span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span> <span class="p">],</span>
+      <span class="nt">&quot;_links&quot;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;self&quot;</span> <span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;href&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;owner&quot;</span> <span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;href&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;_links&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;self&quot;</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;href&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://localhost:8080/owners/search/findByVehicleMake?make=VW&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>You do? Cool. Then this is for you. Read on.</p>
+<h2 id="a-cooks-tour-of-java-persistence">A Cook's tour of Java persistence<a class="headerlink" href="#a-cooks-tour-of-java-persistence" title="Permanent link">&para;</a></h2>
+<p>Let's face it, we've been through a lot of tech around Java persistence frameworks. Those technologies have their place, for sure. And we use them a lot at XYZ.</p>
+<p>The first version of <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/">JDBC</a> came along in 1997 to abstract away the vagaries of calling the Oracle driver directly. Up to that point there was no connection pooling and it could take 1-2 seconds just to open a client to the database from a Java server. <a href="https://en.wikipedia.org/wiki/FastCGI">FastCGI</a> was developed at Open Market (where the author worked at the time) to cache connections. A huge win.</p>
+<p>1997 was a banner year for Java things. <a href="https://docs.oracle.com/javaee/6/tutorial/doc/gijsz.html">Enterprise Java Beans</a> came along and promised to reduce the database load considerably among other benefits. It persisted state to local disk saving memory. It kind of worked at the expense of quite a bit of complexity. Early versions were super fragile. </p>
+<p>Along came <a href="https://hibernate.org/">Hibernate</a> in 2001 as an alternative to EJB. It maps objects to datasets with automating for dirty reads, lazy loading. XYZ uses a lot of Hibernate. Or actually <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html">Java Persistence API (JPA)</a>. Modern Hibernate is one of several JPA providers.</p>
+<h2 id="issues-with-jpa">Issues with JPA<a class="headerlink" href="#issues-with-jpa" title="Permanent link">&para;</a></h2>
+<p>When it works, it works well. It can generate SQL for all the databases. Lazy-loading of dependent objects can make memory usage and database calls efficient.</p>
+<p>But in the author's experience it too-often doesn't work well. Just one of very many questions like <a href="https://stackoverflow.com/questions/10930870/jpa-lazyloading-fails-in-production-mode-in-testmode-it-works-fine">stackoverflow.com</a> asks why this, for example.</p>
+<div class="codehilite"><pre><span></span><code>org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: de.hoeso.gwt.platform.server.domain.common.Person.anschrift, no session or session was closed
+    at org.hibernate.collection.AbstractPersistentCollection.throwLazyInitializationException(AbstractPersistentCollection.java:383)
+    at org.hibernate.collection.AbstractPersistentCollection.throwLazyInitializationExceptionIfNotConnected(AbstractPersistentCollection.java:375)
+    at org.hibernate.collection.AbstractPersistentCollection.readSize(AbstractPersistentCollection.java:122)
+    at org.hibernate.collection.PersistentBag.size(PersistentBag.java:248)
+    at de.hoeso.sis.server.services.common.impl.UserServiceBeanImpl.login(UserServiceBeanImpl.java:397)
+    at de.hoeso.sis.server.rpc.LoginService.execute(LoginService.java:35)
+</code></pre></div>
+
+
+<p>Other people are much better at JPA than me and don't get the above so much.</p>
+<p>JPA requires session state on thread-local storage for many operations, which is anathema to modern <a href="https://www.reactivemanifesto.org/">reactive</a> architectures.</p>
+<h2 id="so-whats-an-alternate">So what's an alternate?<a class="headerlink" href="#so-whats-an-alternate" title="Permanent link">&para;</a></h2>
+<p>There's nothing wrong with JDBC. (Ignoring the fact column indices start at 1, a gift from Java ex-CTO and still the author's friend regardless, Graham Hamilton. You monster Graham. You monster!)</p>
+<p>So let's leverage all JDBC's got to offer.</p>
+<h3 id="take-a-look-at-spring-data-jdbc-and-spring-data-rest">Take a look at Spring Data JDBC and Spring Data Rest<a class="headerlink" href="#take-a-look-at-spring-data-jdbc-and-spring-data-rest" title="Permanent link">&para;</a></h3>
+<p>Along with many others, the author loves <a href="https://spring.io/projects/spring-boot">Spring Boot</a>, so we're going to use it with <a href="https://spring.io/projects/spring-data-jdbc">Spring Data JDBC</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Please make sure you understand: There is no JPA here at all! This Spring Data JDBC, not Spring Data JPA.</strong></p>
+</div>
+<h3 id="heres-a-complete-application">Here's a complete application<a class="headerlink" href="#heres-a-complete-application" title="Permanent link">&para;</a></h3>
+<p>All Spring Boot applications look the same.</p>
+<h4 id="applicationjava"><code>Application.java</code><a class="headerlink" href="#applicationjava" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jdbc.repository.config.EnableJdbcRepositories</span><span class="p">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableJdbcRepositories</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">Application</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<h4 id="ownerjava"><code>Owner.java</code><a class="headerlink" href="#ownerjava" title="Permanent link">&para;</a></h4>
+<p>Simply an object with an <code>id</code>. This corresponds to the SQL</p>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="k">OWNER</span> <span class="p">(</span>
+    <span class="n">ID</span> <span class="nb">INT</span> <span class="n">AUTO_INCREMENT</span>  <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+    <span class="n">FIRST_NAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> 
+    <span class="n">LAST_NAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> 
+<span class="p">);</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.annotation.Id</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Owner</span> <span class="p">{</span>
+  <span class="nd">@Id</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">firstName</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">lastName</span><span class="p">;</span>
+
+  <span class="kd">public</span> <span class="nf">Owner</span><span class="p">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">firstName</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">lastName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">firstName</span> <span class="o">=</span> <span class="n">firstName</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">lastName</span> <span class="o">=</span> <span class="n">lastName</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">static</span> <span class="n">Owner</span> <span class="nf">of</span><span class="p">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">firstName</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">lastName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Owner</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">Owner</span> <span class="nf">withId</span><span class="p">(</span><span class="n">Long</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">of</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">Long</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">id</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getFirstName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">firstName</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getLastName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">lastName</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is actually a pretty nice object pattern. Spring Data takes full advantage of classes written this way.</p>
+</div>
+<h4 id="ownerrepositoryjava"><code>OwnerRepository.java</code><a class="headerlink" href="#ownerrepositoryjava" title="Permanent link">&para;</a></h4>
+<p>This simply provides types for a generic interface.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.repository.CrudRepository</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OwnerRepository</span> <span class="kd">extends</span> <span class="n">CrudRepository</span><span class="o">&lt;</span><span class="n">Owner</span><span class="p">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Wait what? Where's the implementation? This is just an interface.</p>
+<p>Yes. The Spring Framework leverages Aspect Oriented Programming to create runtime proxies that either decorate concrete methods, or in this case implement interface methods. This provides fundamentals for Spring Boot, which takes it and runs with it. Fast. So all the interface methods in <a href="https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html"><code>CrudRepository</code></a> are proxied with clever code.</p>
+<h4 id="maven-pomxml-snippet">Maven <code>pom.xml</code> (snippet)<a class="headerlink" href="#maven-pomxml-snippet" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>...
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>javax.persistence<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>javax.persistence-api<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.2<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-rest<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+...
+</code></pre></div>
+
+
+<h2 id="lets-manipulate-some-data">Let's manipulate some data<a class="headerlink" href="#lets-manipulate-some-data" title="Permanent link">&para;</a></h2>
+<p>Because we included the dependency <code>spring-boot-starter-data-rest</code> we get a REST interface for our data. For free. No code — let alone configuration — required. </p>
+<p>The exported REST interface uses <a href="https://docs.spring.io/spring-hateoas/docs/current/reference/html/">Spring HATEOAS</a>, which some people pronounce "hate-oas" when they either don't understand it, or do but don't like it. </p>
+<h3 id="list-owners">List owners<a class="headerlink" href="#list-owners" title="Permanent link">&para;</a></h3>
+<p>Basic HATEOAS REST calls just name a model.</p>
+<div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners&quot;</span>
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">14</span>:44:46 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;_embedded&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;owners&quot;</span> : <span class="o">[</span> <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;profile&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/profile/owners&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Empty.</p>
+<h3 id="add-an-owner">Add an owner<a class="headerlink" href="#add-an-owner" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$ curl -i -X POST -H <span class="s2">&quot;Content-Type:application/json&quot;</span> -d <span class="s1">&#39;{  &quot;firstName&quot; : &quot;Alex&quot;, &quot;lastName&quot; : &quot;Harrison&quot; }&#39;</span> http://localhost:8080/owners
+HTTP/1.1 <span class="m">201</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Location: http://localhost:8080/owners/1
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">15</span>:26:42 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Alex&quot;</span>,
+  <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Cool. Looks like the <code>id</code> is <code>1</code>. </p>
+<h3 id="add-another">Add another<a class="headerlink" href="#add-another" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$ curl -i -X POST -H <span class="s2">&quot;Content-Type:application/json&quot;</span> -d <span class="s1">&#39;{  &quot;firstName&quot; : &quot;Stephen&quot;, &quot;lastName&quot; : &quot;Harrison&quot; }&#39;</span> http://localhost:8080/owners
+HTTP/1.1 <span class="m">201</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Location: http://localhost:8080/owners/2
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">15</span>:26:52 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Stephen&quot;</span>,
+  <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/2&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/2&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>With an <code>id</code> of <code>2</code>. Looks like Spring Data JDBC has created a sequence for ids.</p>
+<h3 id="list-them-out">List them out<a class="headerlink" href="#list-them-out" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners&quot;</span>
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">15</span>:30:12 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;_embedded&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;owners&quot;</span> : <span class="o">[</span> <span class="o">{</span>
+      <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Alex&quot;</span>,
+      <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+      <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+        <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>,
+        <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>, <span class="o">{</span>
+      <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Stephen&quot;</span>,
+      <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+      <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+        <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/2&quot;</span>
+        <span class="o">}</span>,
+        <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/2&quot;</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;profile&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/profile/owners&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<h3 id="delete-someone-me">Delete someone (me 😿)<a class="headerlink" href="#delete-someone-me" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$ curl -i -X DELETE -H <span class="s2">&quot;Content-Type:application/json&quot;</span> http://localhost:8080/owners/2
+HTTP/1.1 <span class="m">404</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Length: <span class="m">0</span>
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">15</span>:35:45 GMT
+</code></pre></div>
+
+
+<h3 id="list-them-out-again">List them out again<a class="headerlink" href="#list-them-out-again" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners&quot;</span>
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">15</span>:36:13 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;_embedded&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;owners&quot;</span> : <span class="o">[</span> <span class="o">{</span>
+      <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Alex&quot;</span>,
+      <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+      <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+        <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>,
+        <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;profile&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/profile/owners&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<h3 id="update-someone">Update someone<a class="headerlink" href="#update-someone" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$ curl -i -X PATCH -H <span class="s2">&quot;Content-Type:application/json&quot;</span> -d <span class="s1">&#39;{  &quot;firstName&quot; : &quot;Alexander&quot; }&#39;</span> http://localhost:8080/owners/1
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">15</span>:37:40 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Alexander&quot;</span>,
+  <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Notice how we only specify <code>firstName</code> in the body of the <code>PATCH</code>. </p>
+<h3 id="add-some-custom-finders">Add some custom finders<a class="headerlink" href="#add-some-custom-finders" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.repository.CrudRepository</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OwnerRepository</span> <span class="kd">extends</span> <span class="n">CrudRepository</span><span class="o">&lt;</span><span class="n">Owner</span><span class="p">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByFirstName</span><span class="p">(</span><span class="n">String</span> <span class="n">firstName</span><span class="p">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByLastName</span><span class="p">(</span><span class="n">String</span> <span class="n">lastName</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Then we can say</p>
+<div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners/search/findByFirstName?firstName=Alex&quot;</span>
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">15</span>:45:52 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;_embedded&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;owners&quot;</span> : <span class="o">[</span> <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByFirstName?firstName=Alex&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Empty.</p>
+<div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners/search/findByFirstName?firstName=Alexander&quot;</span>
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">15</span>:46:58 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;_embedded&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;owners&quot;</span> : <span class="o">[</span> <span class="o">{</span>
+      <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Alexander&quot;</span>,
+      <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+      <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+        <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>,
+        <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByFirstName?firstName=Alexander&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Bingo.</p>
+<h2 id="add-a-related-table">Add a related table<a class="headerlink" href="#add-a-related-table" title="Permanent link">&para;</a></h2>
+<p>That was dead-simple CRUD that we did close to zero work to create. It's also of zero use to us.</p>
+<p>In any real-world database there are foreign keys, collections, one-to-many, many-to-many, and a lot of other things. Let's see how Spring Data JDBC and Spring Data REST handle that.</p>
+<p>One-to-many and foreign keys are Java <code>Set</code>s. So let's do that.</p>
+<h3 id="create-vehiclejava">Create <code>Vehicle.java</code><a class="headerlink" href="#create-vehiclejava" title="Permanent link">&para;</a></h3>
+<p>This corresponds to the database table</p>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">VEHICLE</span> <span class="p">(</span>
+    <span class="n">ID</span> <span class="nb">INT</span> <span class="n">AUTO_INCREMENT</span>  <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+    <span class="n">MAKE</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> 
+    <span class="n">MODEL</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="p">,</span>
+    <span class="n">MILEAGE</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="k">OWNER</span> <span class="nb">INT</span><span class="p">,</span>
+    <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="k">OWNER</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="k">OWNER</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.annotation.Id</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vehicle</span> <span class="p">{</span>
+  <span class="nd">@Id</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">make</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">model</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">mileage</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Long</span> <span class="n">owner</span><span class="p">;</span>
+
+  <span class="kd">public</span> <span class="nf">Vehicle</span><span class="p">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">make</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">model</span><span class="p">,</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">mileage</span><span class="p">,</span> <span class="kd">final</span> <span class="n">Long</span> <span class="n">owner</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">make</span> <span class="o">=</span> <span class="n">make</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">model</span> <span class="o">=</span> <span class="n">model</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">mileage</span> <span class="o">=</span> <span class="n">mileage</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">owner</span> <span class="o">=</span> <span class="n">owner</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">static</span> <span class="n">Vehicle</span> <span class="nf">of</span><span class="p">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">make</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">model</span><span class="p">,</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">mileage</span><span class="p">,</span> <span class="kd">final</span> <span class="n">Long</span> <span class="n">owner</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Vehicle</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">make</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">mileage</span><span class="p">,</span> <span class="n">owner</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">Vehicle</span> <span class="nf">withId</span><span class="p">(</span><span class="n">Long</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">of</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">make</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">mileage</span><span class="p">,</span> <span class="n">owner</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">Long</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">id</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getMake</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">make</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getModel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getMileage</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">mileage</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">Long</span> <span class="nf">getOwner</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">owner</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<h3 id="vehiclerepositoryjava"><code>VehicleRepository.java</code><a class="headerlink" href="#vehiclerepositoryjava" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.repository.PagingAndSortingRepository</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">VehicleRepository</span> <span class="kd">extends</span> <span class="n">PagingAndSortingRepository</span><span class="o">&lt;</span><span class="n">Vehicle</span><span class="p">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<h3 id="add-vehicles-to-ownerjava">Add vehicles to <code>Owner.java</code><a class="headerlink" href="#add-vehicles-to-ownerjava" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.annotation.Id</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Owner</span> <span class="p">{</span>
+  <span class="nd">@Id</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">firstName</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">lastName</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Vehicle</span><span class="o">&gt;</span> <span class="n">vehicles</span><span class="p">;</span>
+
+  <span class="kd">public</span> <span class="nf">Owner</span><span class="p">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">firstName</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">lastName</span><span class="p">,</span> <span class="kd">final</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Vehicle</span><span class="o">&gt;</span> <span class="n">vehicles</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">firstName</span> <span class="o">=</span> <span class="n">firstName</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">lastName</span> <span class="o">=</span> <span class="n">lastName</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">vehicles</span> <span class="o">=</span> <span class="n">vehicles</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">static</span> <span class="n">Owner</span> <span class="nf">of</span><span class="p">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">firstName</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">lastName</span><span class="p">,</span> <span class="kd">final</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Vehicle</span><span class="o">&gt;</span> <span class="n">vehicles</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Owner</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">,</span> <span class="n">vehicles</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">Owner</span> <span class="nf">withId</span><span class="p">(</span><span class="n">Long</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">of</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">,</span> <span class="n">vehicles</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">Long</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">id</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getFirstName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">firstName</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getLastName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">lastName</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Vehicle</span><span class="o">&gt;</span> <span class="nf">getVehicles</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">vehicles</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<h3 id="manipulate-vehicles">Manipulate vehicles<a class="headerlink" href="#manipulate-vehicles" title="Permanent link">&para;</a></h3>
+<p>He's 18! So buy Alexander a car.</p>
+<div class="codehilite"><pre><span></span><code>$ curl -i -X POST -H <span class="s2">&quot;Content-Type:application/json&quot;</span> -d <span class="s1">&#39;{  &quot;make&quot; : &quot;VW&quot;, &quot;model&quot; : &quot;Jetta&quot;, &quot;mileage&quot;: 42000, &quot;owner&quot;: 1 }&#39;</span> http://localhost:8080/vehicles
+HTTP/1.1 <span class="m">201</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Location: http://localhost:8080/vehicles/1
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">16</span>:09:20 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;make&quot;</span> : <span class="s2">&quot;VW&quot;</span>,
+  <span class="s2">&quot;model&quot;</span> : <span class="s2">&quot;Jetta&quot;</span>,
+  <span class="s2">&quot;mileage&quot;</span> : <span class="m">42000</span>,
+  <span class="s2">&quot;owner&quot;</span> : <span class="m">1</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/vehicles/1&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;vehicle&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/vehicles/1&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Prove he owns it.</p>
+<div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">16</span>:13:46 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Alexander&quot;</span>,
+  <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+  <span class="s2">&quot;vehicles&quot;</span> : <span class="o">[</span> <span class="o">{</span>
+    <span class="s2">&quot;make&quot;</span> : <span class="s2">&quot;VW&quot;</span>,
+    <span class="s2">&quot;model&quot;</span> : <span class="s2">&quot;Jetta&quot;</span>,
+    <span class="s2">&quot;mileage&quot;</span> : <span class="m">42000</span>,
+    <span class="s2">&quot;owner&quot;</span> : <span class="m">1</span>
+  <span class="o">}</span> <span class="o">]</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Cool. Let's buy me a car.</p>
+<div class="codehilite"><pre><span></span><code>$ curl -i -X POST -H <span class="s2">&quot;Content-Type:application/json&quot;</span> -d <span class="s1">&#39;{  &quot;make&quot; : &quot;Bugatti&quot;, &quot;model&quot; : &quot;Veyron&quot;, &quot;mileage&quot;: 10, &quot;owner&quot;: 2 }&#39;</span> http://localhost:8080/vehicles
+HTTP/1.1 <span class="m">201</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Location: http://localhost:8080/vehicles/3
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">16</span>:15:47 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;make&quot;</span> : <span class="s2">&quot;Bugatti&quot;</span>,
+  <span class="s2">&quot;model&quot;</span> : <span class="s2">&quot;Veyron&quot;</span>,
+  <span class="s2">&quot;mileage&quot;</span> : <span class="m">10</span>,
+  <span class="s2">&quot;owner&quot;</span> : <span class="m">2</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/vehicles/3&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;vehicle&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/vehicles/3&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<h3 id="another-custom-finder">Another custom finder<a class="headerlink" href="#another-custom-finder" title="Permanent link">&para;</a></h3>
+<p>Now we have a one-to-many relation, let's add a <code>JOIN</code> with a <code>WHERE</code> clause to <code>OwnerRepository.java</code>. We'll add a fancier base interface <code>PagingAndSortingRepository</code> for some more useful database calls at the same time.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.jdbc.repository.query.Query</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.repository.PagingAndSortingRepository</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OwnerRepository</span> <span class="kd">extends</span> <span class="n">PagingAndSortingRepository</span><span class="o">&lt;</span><span class="n">Owner</span><span class="p">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByFirstName</span><span class="p">(</span><span class="n">String</span> <span class="n">firstName</span><span class="p">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByLastName</span><span class="p">(</span><span class="n">String</span> <span class="n">lastName</span><span class="p">);</span>
+
+    <span class="nd">@Query</span><span class="p">(</span><span class="s">&quot;SELECT OWNER.ID, OWNER.FIRST_NAME, OWNER.LAST_NAME FROM OWNER JOIN VEHICLE ON OWNER.ID = VEHICLE.OWNER WHERE VEHICLE.MAKE = :make&quot;</span><span class="p">)</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByVehicleMake</span><span class="p">(</span><span class="n">String</span> <span class="n">make</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>We can see the custom finders like this</p>
+<div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners/search&quot;</span>
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">16</span>:26:32 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;findByLastName&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByLastName{?lastName}&quot;</span>,
+      <span class="s2">&quot;templated&quot;</span> : <span class="nb">true</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;findByVehicleMake&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByVehicleMake{?make}&quot;</span>,
+      <span class="s2">&quot;templated&quot;</span> : <span class="nb">true</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;findByFirstName&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByFirstName{?firstName}&quot;</span>,
+      <span class="s2">&quot;templated&quot;</span> : <span class="nb">true</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>And test it out</p>
+<div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners/search/findByVehicleMake?make=VW&quot;</span>
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">16</span>:23:22 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;_embedded&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;owners&quot;</span> : <span class="o">[</span> <span class="o">{</span>
+      <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Alexander&quot;</span>,
+      <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+      <span class="s2">&quot;vehicles&quot;</span> : <span class="o">[</span> <span class="o">{</span>
+        <span class="s2">&quot;make&quot;</span> : <span class="s2">&quot;VW&quot;</span>,
+        <span class="s2">&quot;model&quot;</span> : <span class="s2">&quot;Jetta&quot;</span>,
+        <span class="s2">&quot;mileage&quot;</span> : <span class="m">42000</span>,
+        <span class="s2">&quot;owner&quot;</span> : <span class="m">1</span>
+      <span class="o">}</span> <span class="o">]</span>,
+      <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+        <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>,
+        <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByVehicleMake?make=VW&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<h2 id="what-happened-to-transactions">What happened to transactions?<a class="headerlink" href="#what-happened-to-transactions" title="Permanent link">&para;</a></h2>
+<p>Sorry, you can't do them. </p>
+<p>Just kidding.</p>
+<h3 id="clean-up-the-objects">Clean up the objects<a class="headerlink" href="#clean-up-the-objects" title="Permanent link">&para;</a></h3>
+<p>We use the astonishing <a href="https://projectlombok.org/">Lombok</a> to add methods required by the Java object model: <code>toString()</code>, <code>equals()</code>, and <code>hashCode()</code> These were conspicuously missing from the definition we initially had a go at it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There's a <a href="https://marketplace.visualstudio.com/items?itemName=GabrielBB.vscode-lombok">Visual Studio Code extension</a> for Lombok.</p>
+</div>
+<p>This makes <code>Owner.java</code></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.annotation.Id</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.Data</span><span class="p">;</span>
+
+<span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Owner</span> <span class="p">{</span>
+  <span class="nd">@Id</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">firstName</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">lastName</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Vehicle</span><span class="o">&gt;</span> <span class="n">vehicles</span><span class="p">;</span>
+
+  <span class="kd">static</span> <span class="n">Owner</span> <span class="nf">of</span><span class="p">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">id</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">firstName</span><span class="p">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">lastName</span><span class="p">,</span> <span class="kd">final</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Vehicle</span><span class="o">&gt;</span> <span class="n">vehicles</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Owner</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">,</span> <span class="n">vehicles</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">Owner</span> <span class="nf">withId</span><span class="p">(</span><span class="n">Long</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">of</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">,</span> <span class="n">vehicles</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>This is about as pithy as you can get in Java. <code>Vehicle.java</code> follows the same pattern.</p>
+<h2 id="add-a-service-with-transactions">Add a service with transactions<a class="headerlink" href="#add-a-service-with-transactions" title="Permanent link">&para;</a></h2>
+<p>Create <code>OwnerService.java</code> with this</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="p">;</span>
+
+<span class="nd">@Service</span>
+<span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OwnerService</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">OwnerRepository</span> <span class="n">ownerRepository</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">OwnerService</span><span class="p">(</span><span class="kd">final</span> <span class="n">OwnerRepository</span> <span class="n">ownerRepository</span><span class="p">,</span> <span class="kd">final</span> <span class="n">Utils</span> <span class="n">utils</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">ownerRepository</span> <span class="o">=</span> <span class="n">ownerRepository</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="p">(</span><span class="kd">final</span> <span class="n">Long</span> <span class="n">ownerId</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ownerRepository</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">ownerId</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">Owner</span> <span class="nf">save</span><span class="p">(</span><span class="kd">final</span> <span class="n">Owner</span> <span class="n">owner</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ownerRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">owner</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">ownerRepository</span><span class="p">.</span><span class="na">findAll</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deleteAll</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">ownerRepository</span><span class="p">.</span><span class="na">deleteAll</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>We don't expose REST endpoints for service transactions in a controller. We probably should at some point.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Yes, the pattern is that all the service methods are pass-through to the underlying repository. They simply decorate the repository calls with transactions. The service is the <strong>only</strong> place we should <strong>ever</strong> put transaction demarcation. Here's why.</p>
+<p>If we put a transaction annotation on repositories, we couldn't coordinate multiple repository calls from a service, something they do all the time. If we put transactions on the controller, then service calls couldn't coordinate other service calls: Controllers should only be concerned with data marshalling and conversion. Transactions on the service tier is simply the correct place.</p>
+</div>
+<p><code>VehicleService</code> follows the same pattern.</p>
+<h2 id="lets-test-all-this">Let's test all this<a class="headerlink" href="#lets-test-all-this" title="Permanent link">&para;</a></h2>
+<p>Tests in Spring Boot tend to look like this: A class annotation <code>@SpringBootTest</code>, a <code>@BeforeEach</code> hook for test-level initialization, and test methods annotated with <code>@Test</code>. The class annotation executes all the Spring Boot initialization.</p>
+<h3 id="testing-a-repository">Testing a repository<a class="headerlink" href="#testing-a-repository" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">OwnerRepositoryTest</span> <span class="p">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">OwnerRepository</span> <span class="n">ownerRepository</span><span class="p">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">VehicleRepository</span> <span class="n">vehicleRepository</span><span class="p">;</span>
+
+    <span class="nd">@BeforeEach</span>
+    <span class="kt">void</span> <span class="nf">spickAndSpanDatabase</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">ownerRepository</span><span class="p">.</span><span class="na">deleteAll</span><span class="p">();</span>
+        <span class="n">vehicleRepository</span><span class="p">.</span><span class="na">deleteAll</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">whenDatabaseEmpty_ThenReturnEmpty</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">final</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">ownerRepository</span><span class="p">.</span><span class="na">findAll</span><span class="p">();</span>
+        <span class="kd">final</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">emptyList</span><span class="p">();</span>
+
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">actual</span><span class="p">).</span><span class="na">isEqualTo</span><span class="p">(</span><span class="n">expected</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="p">...</span>
+</code></pre></div>
+
+
+<p>And so on.</p>
+<p><code>assertThat()</code> comes from <a href="https://joel-costigliola.github.io/assertj/">Assert4j</a>'s fluent methods.</p>
+<p>Here's another test.</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">whenSaveTwoOwnersAndDeleteOne_ThenReturnOne</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">final</span> <span class="n">Owner</span> <span class="n">stephen</span> <span class="o">=</span> <span class="n">ownerRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">Owner</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s">&quot;Stephen&quot;</span><span class="p">,</span> <span class="s">&quot;Harrison&quot;</span><span class="p">,</span> <span class="n">emptySet</span><span class="p">()));</span>
+  <span class="kd">final</span> <span class="n">Owner</span> <span class="n">alexander</span> <span class="o">=</span> <span class="n">ownerRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">Owner</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s">&quot;Alexander&quot;</span><span class="p">,</span> <span class="s">&quot;Harrison&quot;</span><span class="p">,</span> <span class="n">emptySet</span><span class="p">()));</span>
+
+  <span class="n">ownerRepository</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">stephen</span><span class="p">);</span>
+
+  <span class="kd">final</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">ownerRepository</span><span class="p">.</span><span class="na">findAll</span><span class="p">();</span>
+  <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="n">alexander</span><span class="p">);</span>
+
+  <span class="n">assertThat</span><span class="p">(</span><span class="n">actual</span><span class="p">).</span><span class="na">isEqualTo</span><span class="p">(</span><span class="n">expected</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Pretty prosaic. You get the idea.</p>
+<h3 id="testing-a-service">Testing a service<a class="headerlink" href="#testing-a-service" title="Permanent link">&para;</a></h3>
+<p>This is bit subtler because transactions are in play: We have to test not only the service methods but transactions too.</p>
+<p>The the test class contains a field <code>TransactionTemplate</code>, which has method <code>execute</code> that takes a callback for the code we want to run inside a transaction context. Super handy.</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">OwnerServiceTest</span> <span class="p">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">OwnerService</span> <span class="n">ownerService</span><span class="p">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">Utils</span> <span class="n">utils</span><span class="p">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">PlatformTransactionManager</span> <span class="n">transactionManager</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="n">TransactionTemplate</span> <span class="n">transactionTemplate</span><span class="p">;</span>
+
+    <span class="nd">@BeforeEach</span>
+    <span class="kt">void</span> <span class="nf">spickAndSpanDatabase</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">ownerService</span><span class="p">.</span><span class="na">deleteAll</span><span class="p">();</span>
+
+        <span class="n">transactionTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TransactionTemplate</span><span class="p">(</span><span class="n">transactionManager</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">whenDatabaseEmpty_ThenReturnEmpty</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">final</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="n">owners</span> <span class="o">=</span> <span class="n">ownerService</span><span class="p">.</span><span class="na">findAll</span><span class="p">();</span>
+
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">owners</span><span class="p">).</span><span class="na">isEmpty</span><span class="p">();</span>
+    <span class="p">}</span>
+
+  <span class="p">...</span>
+</code></pre></div>
+
+
+<p>Now our tests can use the transaction context and look like</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">whenServiceMethodFails_ThenTransactionIsRolledBack</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">assertThat</span><span class="p">(</span><span class="n">ownerService</span><span class="p">.</span><span class="na">findAll</span><span class="p">()).</span><span class="na">isEmpty</span><span class="p">();</span>
+
+  <span class="kd">final</span> <span class="n">Owner</span> <span class="n">existing</span> <span class="o">=</span> <span class="n">ownerService</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">utils</span><span class="p">.</span><span class="na">randomOwner</span><span class="p">());</span>
+
+  <span class="n">assertThat</span><span class="p">(</span><span class="n">ownerService</span><span class="p">.</span><span class="na">findAll</span><span class="p">()).</span><span class="na">isEqualTo</span><span class="p">(</span><span class="n">asList</span><span class="p">(</span><span class="n">existing</span><span class="p">));</span>
+
+  <span class="n">transactionTemplate</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">status</span> <span class="o">-&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="c1">// Succeeds</span>
+      <span class="c1">//</span>
+      <span class="n">ownerService</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">utils</span><span class="p">.</span><span class="na">randomOwner</span><span class="p">());</span>
+
+      <span class="c1">// Fails</span>
+      <span class="c1">//</span>
+      <span class="n">ownerService</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">Owner</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">));</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="kd">final</span> <span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">status</span><span class="p">.</span><span class="na">setRollbackOnly</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="s">&quot;ok&quot;</span><span class="p">;</span>
+  <span class="p">});</span>
+
+  <span class="n">assertThat</span><span class="p">(</span><span class="n">ownerService</span><span class="p">.</span><span class="na">findAll</span><span class="p">()).</span><span class="na">isEqualTo</span><span class="p">(</span><span class="n">asList</span><span class="p">(</span><span class="n">existing</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Notice that both <code>save()</code>s are inside a transaction context. And the whole thing works because each method in <code>OwnerService</code> either takes an existing or creates a new transaction: That's the semantics of <code>@Transactional</code>.</p>
+<h2 id="the-upshot">The upshot<a class="headerlink" href="#the-upshot" title="Permanent link">&para;</a></h2>
+<p>We looked at whether we could replace high level but often-fragile JPA with something much simpler. </p>
+<p>Judge for yourselves whether Spring Data JDBC is for you. For the author, there's no alternative for Java persistence nowadays.</p>
+<p>We hope you enjoyed your lazy afternoon as much as we did.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+        
+          <a href="../webflux/" title="A Lazy Afternoon With WebFlux" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                A Lazy Afternoon With WebFlux
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../assets/javascripts/bundle.5f27aba8.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.27c6a5e6.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
