@@ -1,9 +1,20 @@
 site_name: XYZ Tech Blog
 
 nav:
-  - "I'm Glad I Learned: WebFlux": webflux.md
-  - "I'm Glad I Learned: Spring Boot's Free Stuff": spring-boot-free-stuff.md
-  - "I'm Glad I Learned: Kotlin": kotlin.md
+  - "A Lazy Afternoon With Dead-simple Java Persistence": dead-simple-java-persistence.md
+  - "A Lazy Afternoon With WebFlux": webflux.md
+  - "A Lazy Afternoon With Spring Boot's Free Stuff": spring-boot-free-stuff.md
+  - "A Lazy Afternoon With Kotlin": kotlin.md
 
 theme: 
   name: material
+
+plugins:
+    - search
+markdown_extensions:
+    - toc:
+          permalink: true
+    - admonition
+    - codehilite:
+          guess_lang: false
+    - footnotes
