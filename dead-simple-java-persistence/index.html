@@ -188,18 +188,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#issues-with-jpa" class="md-nav__link">
-    Issues with JPA
+  <a href="#lets-go-back-to-basics" class="md-nav__link">
+    Let's go back to basics
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#so-whats-an-alternate" class="md-nav__link">
-    So what's an alternate?
-  </a>
-  
-    <nav class="md-nav" aria-label="So what's an alternate?">
+    <nav class="md-nav" aria-label="Let's go back to basics">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -430,6 +423,40 @@
   <a href="#the-upshot" class="md-nav__link">
     The upshot
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#some-sample-generate-sql" class="md-nav__link">
+    Some sample generate SQL
+  </a>
+  
+    <nav class="md-nav" aria-label="Some sample generate SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crudrepositorysaves-entity" class="md-nav__link">
+    CRUDRepository.save(S entity)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crudrepositoryfindbyidid-id" class="md-nav__link">
+    CRUDRepository.findById(ID id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownerrepositoryfindbylastnamestring-lastname-pageable-pageable" class="md-nav__link">
+    OwnerRepository.findByLastName(String lastName, Pageable pageable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -507,18 +534,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#issues-with-jpa" class="md-nav__link">
-    Issues with JPA
+  <a href="#lets-go-back-to-basics" class="md-nav__link">
+    Let's go back to basics
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#so-whats-an-alternate" class="md-nav__link">
-    So what's an alternate?
-  </a>
-  
-    <nav class="md-nav" aria-label="So what's an alternate?">
+    <nav class="md-nav" aria-label="Let's go back to basics">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -752,6 +772,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#some-sample-generate-sql" class="md-nav__link">
+    Some sample generate SQL
+  </a>
+  
+    <nav class="md-nav" aria-label="Some sample generate SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crudrepositorysaves-entity" class="md-nav__link">
+    CRUDRepository.save(S entity)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crudrepositoryfindbyidid-id" class="md-nav__link">
+    CRUDRepository.findById(ID id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownerrepositoryfindbylastnamestring-lastname-pageable-pageable" class="md-nav__link">
+    OwnerRepository.findByLastName(String lastName, Pageable pageable)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -770,7 +824,7 @@
                 
                   <h1>A Lazy Afternoon With Dead-simple Java Persistence</h1>
                 
-                <p>If owners have vehicles, do you want to write your database connectivity like this?</p>
+                <p>If we have a database with owners who have vehicles, do you want to write your Java database connectivity like this?</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
@@ -788,7 +842,7 @@
 </code></pre></div>
 
 
-<p>That generates SQL for (only the trivial) CRUD operations like this</p>
+<p>That generates SQL for (only the very most trivial) CRUD operations like this</p>
 <div class="codehilite"><pre><span></span><code><span class="k">SELECT</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;ID&quot;</span> <span class="k">AS</span> <span class="ss">&quot;ID&quot;</span><span class="p">,</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;LAST_NAME&quot;</span> <span class="k">AS</span> <span class="ss">&quot;LAST_NAME&quot;</span><span class="p">,</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;FIRST_NAME&quot;</span> <span class="k">AS</span> <span class="ss">&quot;FIRST_NAME&quot;</span> <span class="k">FROM</span> <span class="ss">&quot;OWNER&quot;</span> <span class="k">WHERE</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;ID&quot;</span> <span class="o">=</span> <span class="o">?</span>
 </code></pre></div>
 
@@ -836,36 +890,23 @@
 
 <p>You do? Cool. Then this is for you. Read on.</p>
 <h2 id="a-cooks-tour-of-java-persistence">A Cook's tour of Java persistence<a class="headerlink" href="#a-cooks-tour-of-java-persistence" title="Permanent link">&para;</a></h2>
-<p>Let's face it, we've been through a lot of tech around Java persistence frameworks. Those technologies have their place, for sure. And we use them a lot at XYZ.</p>
-<p>The first version of <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/">JDBC</a> came along in 1997 to abstract away the vagaries of calling the Oracle driver directly. Up to that point there was no connection pooling and it could take 1-2 seconds just to open a client to the database from a Java server. <a href="https://en.wikipedia.org/wiki/FastCGI">FastCGI</a> was developed at Open Market (where the author worked at the time) to cache connections. A huge win.</p>
+<p>We've been through a lot of tech around Java persistence frameworks. And we use a lot of them here at XYZ in software where they found a home at the time. Let's take a quick look.</p>
+<p>The first version of <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/">JDBC</a> came along in 1997 to abstract away the vagaries of calling the Oracle driver directly. At the time a new Unix process was forked per request, which meant opening a new Oracle connection every time. That's 1-2 seconds roundtrip. <a href="https://en.wikipedia.org/wiki/FastCGI">FastCGI</a> and JDBC connection pooling started us down the path.</p>
 <p>1997 was a banner year for Java things. <a href="https://docs.oracle.com/javaee/6/tutorial/doc/gijsz.html">Enterprise Java Beans</a> came along and promised to reduce the database load considerably among other benefits. It persisted state to local disk saving memory. It kind of worked at the expense of quite a bit of complexity. Early versions were super fragile. </p>
-<p>Along came <a href="https://hibernate.org/">Hibernate</a> in 2001 as an alternative to EJB. It maps objects to datasets with automating for dirty reads, lazy loading. XYZ uses a lot of Hibernate. Or actually <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html">Java Persistence API (JPA)</a>. Modern Hibernate is one of several JPA providers.</p>
-<h2 id="issues-with-jpa">Issues with JPA<a class="headerlink" href="#issues-with-jpa" title="Permanent link">&para;</a></h2>
-<p>When it works, it works well. It can generate SQL for all the databases. Lazy-loading of dependent objects can make memory usage and database calls efficient.</p>
-<p>But in the author's experience it too-often doesn't work well. Just one of very many questions like <a href="https://stackoverflow.com/questions/10930870/jpa-lazyloading-fails-in-production-mode-in-testmode-it-works-fine">stackoverflow.com</a> asks why this, for example.</p>
-<div class="codehilite"><pre><span></span><code>org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: de.hoeso.gwt.platform.server.domain.common.Person.anschrift, no session or session was closed
-    at org.hibernate.collection.AbstractPersistentCollection.throwLazyInitializationException(AbstractPersistentCollection.java:383)
-    at org.hibernate.collection.AbstractPersistentCollection.throwLazyInitializationExceptionIfNotConnected(AbstractPersistentCollection.java:375)
-    at org.hibernate.collection.AbstractPersistentCollection.readSize(AbstractPersistentCollection.java:122)
-    at org.hibernate.collection.PersistentBag.size(PersistentBag.java:248)
-    at de.hoeso.sis.server.services.common.impl.UserServiceBeanImpl.login(UserServiceBeanImpl.java:397)
-    at de.hoeso.sis.server.rpc.LoginService.execute(LoginService.java:35)
-</code></pre></div>
-
-
-<p>Other people are much better at JPA than me and don't get the above so much.</p>
-<p>JPA requires session state on thread-local storage for many operations, which is anathema to modern <a href="https://www.reactivemanifesto.org/">reactive</a> architectures.</p>
-<h2 id="so-whats-an-alternate">So what's an alternate?<a class="headerlink" href="#so-whats-an-alternate" title="Permanent link">&para;</a></h2>
-<p>There's nothing wrong with JDBC. (Ignoring the fact column indices start at 1, a gift from Java ex-CTO and still the author's friend regardless, Graham Hamilton. You monster Graham. You monster!)</p>
-<p>So let's leverage all JDBC's got to offer.</p>
+<p>Along came <a href="https://hibernate.org/">Hibernate</a> in 2001 as an alternative to EJB. It maps objects to datasets with automating for dirty reads, lazy loading. XYZ uses a lot of Hibernate. Or actually <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html">Java Persistence API (JPA)</a>. Modern Hibernate is one of several JPA solid providers.</p>
+<p>JPA can generate SQL for all the databases. Its lazy-loading of dependent objects can make memory usage and database calls efficient. Once JPA has been set up it works just fine.</p>
+<p>Like many tech alternatives, peoples' opinions and successes vary considerably. All back-end developers have to talk to databases at some point. All developers have strong opinions, some about this topic especially. This is just about a alternate to JPA, not a position about whether people should switch.</p>
+<h2 id="lets-go-back-to-basics">Let's go back to basics<a class="headerlink" href="#lets-go-back-to-basics" title="Permanent link">&para;</a></h2>
+<p>There's nothing wrong with JDBC. (Ignoring the fact column indices start at 1.)</p>
+<p>Let's see what happens when we leverage a small framework to leverage all JDBC's got to offer. We're going to look at something that abstracts away a connection pool, basic CRUD and not much else. Is it any good?</p>
 <h3 id="take-a-look-at-spring-data-jdbc-and-spring-data-rest">Take a look at Spring Data JDBC and Spring Data Rest<a class="headerlink" href="#take-a-look-at-spring-data-jdbc-and-spring-data-rest" title="Permanent link">&para;</a></h3>
 <p>Along with many others, the author loves <a href="https://spring.io/projects/spring-boot">Spring Boot</a>, so we're going to use it with <a href="https://spring.io/projects/spring-data-jdbc">Spring Data JDBC</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>Please make sure you understand: There is no JPA here at all! This Spring Data JDBC, not Spring Data JPA.</strong></p>
+<p><strong>Please make sure you understand: There is no JPA here at all! This Spring Data JDBC, not Spring Data JPA.</strong> There are no dependencies on JPA providers in the Maven file.</p>
 </div>
 <h3 id="heres-a-complete-application">Here's a complete application<a class="headerlink" href="#heres-a-complete-application" title="Permanent link">&para;</a></h3>
-<p>All Spring Boot applications look the same.</p>
+<p>All Spring Boot main classes look the same.</p>
 <h4 id="applicationjava"><code>Application.java</code><a class="headerlink" href="#applicationjava" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
 
@@ -886,13 +927,14 @@
 <h4 id="ownerjava"><code>Owner.java</code><a class="headerlink" href="#ownerjava" title="Permanent link">&para;</a></h4>
 <p>Simply an object with an <code>id</code>. This corresponds to the SQL</p>
 <div class="codehilite"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="k">OWNER</span> <span class="p">(</span>
-    <span class="n">ID</span> <span class="nb">INT</span> <span class="n">AUTO_INCREMENT</span>  <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+    <span class="n">ID</span> <span class="nb">INT</span> <span class="n">AUTO_INCREMENT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
     <span class="n">FIRST_NAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> 
     <span class="n">LAST_NAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> 
 <span class="p">);</span>
 </code></pre></div>
 
 
+<p>No surprises. Immutable is always OK.</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
@@ -950,7 +992,7 @@
 
 
 <p>Wait what? Where's the implementation? This is just an interface.</p>
-<p>Yes. The Spring Framework leverages Aspect Oriented Programming to create runtime proxies that either decorate concrete methods, or in this case implement interface methods. This provides fundamentals for Spring Boot, which takes it and runs with it. Fast. So all the interface methods in <a href="https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html"><code>CrudRepository</code></a> are proxied with clever code.</p>
+<p>Yes. The underlying Spring Framework leverages <a href="https://docs.spring.io/spring/docs/2.5.x/reference/aop.html#aop-ataspectj">AspectJ</a> for Aspect Oriented Programming (AOP) fundamentals. AOP creates runtime proxies that either decorate concrete methods, or in this case implement interface methods. All interface methods in <a href="https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html"><code>CrudRepository</code></a> are proxied with clever code.</p>
 <h4 id="maven-pomxml-snippet">Maven <code>pom.xml</code> (snippet)<a class="headerlink" href="#maven-pomxml-snippet" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code>...
         <span class="nt">&lt;dependency&gt;</span>
@@ -960,7 +1002,6 @@
         <span class="nt">&lt;dependency&gt;</span>
             <span class="nt">&lt;groupId&gt;</span>javax.persistence<span class="nt">&lt;/groupId&gt;</span>
             <span class="nt">&lt;artifactId&gt;</span>javax.persistence-api<span class="nt">&lt;/artifactId&gt;</span>
-            <span class="nt">&lt;version&gt;</span>2.2<span class="nt">&lt;/version&gt;</span>
         <span class="nt">&lt;/dependency&gt;</span>
         <span class="nt">&lt;dependency&gt;</span>
             <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
@@ -1054,7 +1095,7 @@ Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class
 </code></pre></div>
 
 
-<p>With an <code>id</code> of <code>2</code>. Looks like Spring Data JDBC has created a sequence for ids.</p>
+<p>With an <code>id</code> of <code>2</code>. <code>AUTO_INCREMENT</code> is working by default.</p>
 <h3 id="list-them-out">List them out<a class="headerlink" href="#list-them-out" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners&quot;</span>
 HTTP/1.1 <span class="m">200</span>
@@ -1105,7 +1146,7 @@ Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class
 
 <h3 id="delete-someone-me">Delete someone (me 😿)<a class="headerlink" href="#delete-someone-me" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>$ curl -i -X DELETE -H <span class="s2">&quot;Content-Type:application/json&quot;</span> http://localhost:8080/owners/2
-HTTP/1.1 <span class="m">404</span>
+HTTP/1.1 <span class="m">204</span>
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
@@ -1251,12 +1292,12 @@ Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class
 <p>Bingo.</p>
 <h2 id="add-a-related-table">Add a related table<a class="headerlink" href="#add-a-related-table" title="Permanent link">&para;</a></h2>
 <p>That was dead-simple CRUD that we did close to zero work to create. It's also of zero use to us.</p>
-<p>In any real-world database there are foreign keys, collections, one-to-many, many-to-many, and a lot of other things. Let's see how Spring Data JDBC and Spring Data REST handle that.</p>
-<p>One-to-many and foreign keys are Java <code>Set</code>s. So let's do that.</p>
+<p>All real-world databases have foreign keys, collections, one-to-many, many-to-many, and a lot of other things. Let's see how Spring Data JDBC and Spring Data REST handle that.</p>
+<p>One-to-many and foreign keys are Java <code>Set</code>s. Define a <code>Vehicle</code>, a repository for it, and add the collection to <code>Owner</code>.</p>
 <h3 id="create-vehiclejava">Create <code>Vehicle.java</code><a class="headerlink" href="#create-vehiclejava" title="Permanent link">&para;</a></h3>
 <p>This corresponds to the database table</p>
 <div class="codehilite"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">VEHICLE</span> <span class="p">(</span>
-    <span class="n">ID</span> <span class="nb">INT</span> <span class="n">AUTO_INCREMENT</span>  <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+    <span class="n">ID</span> <span class="nb">INT</span> <span class="n">AUTO_INCREMENT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
     <span class="n">MAKE</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> 
     <span class="n">MODEL</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="p">,</span>
     <span class="n">MILEAGE</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
@@ -1464,7 +1505,15 @@ Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class
 
 
 <h3 id="another-custom-finder">Another custom finder<a class="headerlink" href="#another-custom-finder" title="Permanent link">&para;</a></h3>
-<p>Now we have a one-to-many relation, let's add a <code>JOIN</code> with a <code>WHERE</code> clause to <code>OwnerRepository.java</code>. We'll add a fancier base interface <code>PagingAndSortingRepository</code> for some more useful database calls at the same time.</p>
+<p>Now we have a one-to-many relation, let's add a <code>JOIN</code> with a <code>WHERE</code> clause to <code>OwnerRepository.java</code>. We'll add a fancier base interface <code>PagingAndSortingRepository</code>, which adds these finders</p>
+<div class="codehilite"><pre><span></span><code>    <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="p">(</span><span class="n">Sort</span> <span class="n">sort</span><span class="p">);</span>
+
+    <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="p">(</span><span class="n">Pageable</span> <span class="n">pageable</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>Once we have those, we define our custom finders the same way. Just by adding a parameter for <code>Pageable</code> we get REST endpoint bindings for paging and searching.</p>
+<p><code>OwnerRepository.java</code> becomes</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">package</span> <span class="nn">cloud.stephen.springdatajdbc</span><span class="p">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
@@ -1473,37 +1522,37 @@ Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class
 <span class="kn">import</span> <span class="nn">org.springframework.data.repository.PagingAndSortingRepository</span><span class="p">;</span>
 
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OwnerRepository</span> <span class="kd">extends</span> <span class="n">PagingAndSortingRepository</span><span class="o">&lt;</span><span class="n">Owner</span><span class="p">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByFirstName</span><span class="p">(</span><span class="n">String</span> <span class="n">firstName</span><span class="p">);</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByLastName</span><span class="p">(</span><span class="n">String</span> <span class="n">lastName</span><span class="p">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByFirstName</span><span class="p">(</span><span class="n">String</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="p">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByLastName</span><span class="p">(</span><span class="n">String</span> <span class="n">lastName</span><span class="p">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="p">);</span>
 
     <span class="nd">@Query</span><span class="p">(</span><span class="s">&quot;SELECT OWNER.ID, OWNER.FIRST_NAME, OWNER.LAST_NAME FROM OWNER JOIN VEHICLE ON OWNER.ID = VEHICLE.OWNER WHERE VEHICLE.MAKE = :make&quot;</span><span class="p">)</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByVehicleMake</span><span class="p">(</span><span class="n">String</span> <span class="n">make</span><span class="p">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Owner</span><span class="o">&gt;</span> <span class="nf">findByVehicleMake</span><span class="p">(</span><span class="n">String</span> <span class="n">make</span><span class="p">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
-<p>We can see the custom finders like this</p>
+<p>We can discover custom finders with the <code>search</code> endpoint.</p>
 <div class="codehilite"><pre><span></span><code>$ curl -i <span class="s2">&quot;http://localhost:8080/owners/search&quot;</span>
-HTTP/1.1 <span class="m">200</span>
+HTTP/1.1 <span class="m">200</span> 
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/hal+json
 Transfer-Encoding: chunked
-Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class="m">16</span>:26:32 GMT
+Date: Tue, <span class="m">26</span> May <span class="m">2020</span> <span class="m">19</span>:03:43 GMT
 
 <span class="o">{</span>
   <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
     <span class="s2">&quot;findByLastName&quot;</span> : <span class="o">{</span>
-      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByLastName{?lastName}&quot;</span>,
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByLastName{?lastName,page,size,sort}&quot;</span>,
       <span class="s2">&quot;templated&quot;</span> : <span class="nb">true</span>
     <span class="o">}</span>,
     <span class="s2">&quot;findByVehicleMake&quot;</span> : <span class="o">{</span>
-      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByVehicleMake{?make}&quot;</span>,
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByVehicleMake{?make,page,size,sort}&quot;</span>,
       <span class="s2">&quot;templated&quot;</span> : <span class="nb">true</span>
     <span class="o">}</span>,
     <span class="s2">&quot;findByFirstName&quot;</span> : <span class="o">{</span>
-      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByFirstName{?firstName}&quot;</span>,
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByFirstName{?firstName,page,size,sort}&quot;</span>,
       <span class="s2">&quot;templated&quot;</span> : <span class="nb">true</span>
     <span class="o">}</span>,
     <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
@@ -1750,9 +1799,71 @@ Date: Sun, <span class="m">24</span> May <span class="m">2020</span> <span class
 
 <p>Notice that both <code>save()</code>s are inside a transaction context. And the whole thing works because each method in <code>OwnerService</code> either takes an existing or creates a new transaction: That's the semantics of <code>@Transactional</code>.</p>
 <h2 id="the-upshot">The upshot<a class="headerlink" href="#the-upshot" title="Permanent link">&para;</a></h2>
-<p>We looked at whether we could replace high level but often-fragile JPA with something much simpler. </p>
-<p>Judge for yourselves whether Spring Data JDBC is for you. For the author, there's no alternative for Java persistence nowadays.</p>
-<p>We hope you enjoyed your lazy afternoon as much as we did.</p>
+<p>We looked at a simpler alternative to JPA, Spring Data JDBC. It's simpler and does not do as much, a trade we usually expect.</p>
+<p>Judge for yourselves whether Spring Data JDBC is for you. </p>
+<p>We hope you enjoyed your lazy afternoon learning Spring Data JDBC as much as we did.</p>
+<h2 id="some-sample-generate-sql">Some sample generate SQL<a class="headerlink" href="#some-sample-generate-sql" title="Permanent link">&para;</a></h2>
+<p>If you're curious, here is the SQL for select built-in repository methods.</p>
+<h3 id="crudrepositorysaves-entity"><code>CRUDRepository.save(S entity)</code><a class="headerlink" href="#crudrepositorysaves-entity" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="ss">&quot;OWNER&quot;</span> <span class="p">(</span><span class="ss">&quot;FIRST_NAME&quot;</span><span class="p">,</span> <span class="ss">&quot;LAST_NAME&quot;</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="o">?</span><span class="p">,</span> <span class="o">?</span><span class="p">)</span>
+</code></pre></div>
+
+
+<h3 id="crudrepositoryfindbyidid-id"><code>CRUDRepository.findById(ID id)</code><a class="headerlink" href="#crudrepositoryfindbyidid-id" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;ID&quot;</span> <span class="k">AS</span> <span class="ss">&quot;ID&quot;</span><span class="p">,</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;LAST_NAME&quot;</span> <span class="k">AS</span> <span class="ss">&quot;LAST_NAME&quot;</span><span class="p">,</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;FIRST_NAME&quot;</span> <span class="k">AS</span> <span class="ss">&quot;FIRST_NAME&quot;</span> <span class="k">FROM</span> <span class="ss">&quot;OWNER&quot;</span> <span class="k">WHERE</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;ID&quot;</span> <span class="o">=</span> <span class="o">?</span>
+<span class="k">SELECT</span> <span class="ss">&quot;VEHICLE&quot;</span><span class="p">.</span><span class="ss">&quot;ID&quot;</span> <span class="k">AS</span> <span class="ss">&quot;ID&quot;</span><span class="p">,</span> <span class="ss">&quot;VEHICLE&quot;</span><span class="p">.</span><span class="ss">&quot;MAKE&quot;</span> <span class="k">AS</span> <span class="ss">&quot;MAKE&quot;</span><span class="p">,</span> <span class="ss">&quot;VEHICLE&quot;</span><span class="p">.</span><span class="ss">&quot;MODEL&quot;</span> <span class="k">AS</span> <span class="ss">&quot;MODEL&quot;</span><span class="p">,</span> <span class="ss">&quot;VEHICLE&quot;</span><span class="p">.</span><span class="ss">&quot;OWNER&quot;</span> <span class="k">AS</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">,</span> <span class="ss">&quot;VEHICLE&quot;</span><span class="p">.</span><span class="ss">&quot;MILEAGE&quot;</span> <span class="k">AS</span> <span class="ss">&quot;MILEAGE&quot;</span> <span class="k">FROM</span> <span class="ss">&quot;VEHICLE&quot;</span> <span class="k">WHERE</span> <span class="ss">&quot;VEHICLE&quot;</span><span class="p">.</span><span class="ss">&quot;OWNER&quot;</span> <span class="o">=</span> <span class="o">?</span>
+</code></pre></div>
+
+
+<h3 id="ownerrepositoryfindbylastnamestring-lastname-pageable-pageable"><code>OwnerRepository.findByLastName(String lastName, Pageable pageable)</code><a class="headerlink" href="#ownerrepositoryfindbylastnamestring-lastname-pageable-pageable" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl -i <span class="s2">&quot;http://localhost:8080/owners/search/findByLastName?lastName=Harrison&amp;sort=firstName,desc&amp;page=0&quot;</span>
+HTTP/1.1 <span class="m">200</span>
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+Transfer-Encoding: chunked
+Date: Tue, <span class="m">26</span> May <span class="m">2020</span> <span class="m">19</span>:34:58 GMT
+
+<span class="o">{</span>
+  <span class="s2">&quot;_embedded&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;owners&quot;</span> : <span class="o">[</span> <span class="o">{</span>
+      <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Stephen&quot;</span>,
+      <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+      <span class="s2">&quot;vehicles&quot;</span> : <span class="o">[</span> <span class="o">]</span>,
+      <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+        <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>,
+        <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/1&quot;</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>, <span class="o">{</span>
+      <span class="s2">&quot;firstName&quot;</span> : <span class="s2">&quot;Alexander&quot;</span>,
+      <span class="s2">&quot;lastName&quot;</span> : <span class="s2">&quot;Harrison&quot;</span>,
+      <span class="s2">&quot;vehicles&quot;</span> : <span class="o">[</span> <span class="o">]</span>,
+      <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+        <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/2&quot;</span>
+        <span class="o">}</span>,
+        <span class="s2">&quot;owner&quot;</span> : <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/2&quot;</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;_links&quot;</span> : <span class="o">{</span>
+    <span class="s2">&quot;self&quot;</span> : <span class="o">{</span>
+      <span class="s2">&quot;href&quot;</span> : <span class="s2">&quot;http://localhost:8080/owners/search/findByLastName?lastName=Harrison&amp;sort=firstName,desc&amp;page=0&quot;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;ID&quot;</span> <span class="k">AS</span> <span class="ss">&quot;ID&quot;</span><span class="p">,</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;LAST_NAME&quot;</span> <span class="k">AS</span> <span class="ss">&quot;LAST_NAME&quot;</span><span class="p">,</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;FIRST_NAME&quot;</span> <span class="k">AS</span> <span class="ss">&quot;FIRST_NAME&quot;</span> <span class="k">FROM</span> <span class="ss">&quot;OWNER&quot;</span> <span class="k">WHERE</span> <span class="ss">&quot;OWNER&quot;</span><span class="p">.</span><span class="ss">&quot;LAST_NAME&quot;</span> <span class="o">=</span> <span class="o">?</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="ss">&quot;FIRST_NAME&quot;</span> <span class="k">DESC</span> <span class="k">LIMIT</span> <span class="mi">20</span> <span class="k">OFFSET</span> <span class="mi">0</span>
+</code></pre></div>
                 
               
               
